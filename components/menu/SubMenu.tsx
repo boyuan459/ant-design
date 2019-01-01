@@ -15,17 +15,23 @@ class SubMenu extends React.Component<any, any> {
   onKeyDown = (e: React.MouseEvent<HTMLElement>) => {
     this.subMenu.onKeyDown(e);
   };
-
   saveSubMenu = (subMenu: any) => {
     this.subMenu = subMenu;
   };
-
+  getCollapsedMode = () => {
+    const { mode, showTextInlineCollapsed } = this.props;
+    return mode === 'vertical' && showTextInlineCollapsed === true;
+  };
   render() {
     const { rootPrefixCls, className } = this.props;
     const theme = this.context.antdMenuTheme;
+    const subMenuClassName = classNames(className, {
+      [`${rootPrefixCls}-submenu-collapse`]: this.getCollapsedMode(),
+    });
     return (
       <RcSubMenu
         {...this.props}
+        className={subMenuClassName}
         ref={this.saveSubMenu}
         popupClassName={classNames(`${rootPrefixCls}-${theme}`, className)}
       />
