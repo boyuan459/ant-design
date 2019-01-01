@@ -41,7 +41,7 @@ class MenuItem extends React.Component<MenuItemProps, any> {
     }
 
     const itemClassName = classNames(className, {
-      [`${rootPrefixCls}-item-collapse`]: showTextInlineCollapsed,
+      [`${rootPrefixCls}-item-collapse`]: showTextInlineCollapsed && inlineCollapsed,
     });
 
     if (showTextInlineCollapsed) {
