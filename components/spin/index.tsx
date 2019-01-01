@@ -2,8 +2,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import omit from 'omit.js';
+import { tuple } from '../_util/type';
 
-export type SpinSize = 'small' | 'default' | 'large';
+const SpinSizes = tuple('small', 'default', 'large');
+export type SpinSize = (typeof SpinSizes)[number];
 export type SpinIndicator = React.ReactElement<any>;
 
 export interface SpinProps {
@@ -67,9 +69,9 @@ class Spin extends React.Component<SpinProps, SpinState> {
     prefixCls: PropTypes.string,
     className: PropTypes.string,
     spinning: PropTypes.bool,
-    size: PropTypes.oneOf(['small', 'default', 'large']),
+    size: PropTypes.oneOf(SpinSizes),
     wrapperClassName: PropTypes.string,
-    indicator: PropTypes.node,
+    indicator: PropTypes.element,
   };
 
   static setDefaultIndicator(indicator: React.ReactNode) {
@@ -137,7 +139,7 @@ class Spin extends React.Component<SpinProps, SpinState> {
   };
 
   render() {
-    const { className, size, prefixCls, tip, wrapperClassName, ...restProps } = this.props;
+    const { className, size, prefixCls, tip, wrapperClassName, style, ...restProps } = this.props;
     const { spinning } = this.state;
 
     const spinClassName = classNames(
@@ -155,7 +157,7 @@ class Spin extends React.Component<SpinProps, SpinState> {
     const divProps = omit(restProps, ['spinning', 'delay', 'indicator']);
 
     const spinElement = (
-      <div {...divProps} className={spinClassName}>
+      <div {...divProps} style={style} className={spinClassName}>
         {renderIndicator(this.props)}
         {tip ? <div className={`${prefixCls}-text`}>{tip}</div> : null}
       </div>

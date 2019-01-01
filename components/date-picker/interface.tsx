@@ -19,7 +19,7 @@ export interface PickerProps {
   getCalendarContainer?: (triggerNode: Element) => HTMLElement;
   open?: boolean;
   onOpenChange?: (status: boolean) => void;
-  disabledDate?: (current: moment.Moment) => boolean;
+  disabledDate?: (current: moment.Moment | undefined) => boolean;
   renderExtraFooter?: () => React.ReactNode;
   dateRender?: (current: moment.Moment, today: moment.Moment) => React.ReactNode;
 }
@@ -37,7 +37,7 @@ export interface DatePickerProps extends PickerProps, SinglePickerProps {
   showToday?: boolean;
   open?: boolean;
   disabledTime?: (
-    current: moment.Moment,
+    current: moment.Moment | undefined,
   ) => {
     disabledHours?: () => number[];
     disabledMinutes?: () => number[];
@@ -67,7 +67,7 @@ export interface RangePickerProps extends PickerProps {
   defaultPickerValue?: RangePickerValue;
   onChange?: (dates: RangePickerValue, dateStrings: [string, string]) => void;
   onCalendarChange?: (dates: RangePickerValue, dateStrings: [string, string]) => void;
-  onOk?: (selectedTime: moment.Moment) => void;
+  onOk?: (selectedTime: moment.Moment[]) => void;
   showTime?: TimePickerProps | boolean;
   ranges?: {
     [range: string]: RangePickerPresetRange;
@@ -75,7 +75,7 @@ export interface RangePickerProps extends PickerProps {
   placeholder?: [string, string];
   mode?: string | string[];
   disabledTime?: (
-    current: moment.Moment,
+    current: moment.Moment | undefined,
     type: string,
   ) => {
     disabledHours?: () => number[];
